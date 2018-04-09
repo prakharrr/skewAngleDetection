@@ -24,3 +24,24 @@ cord1 = np.array([nz[1][leftix],nz[0][leftix]])
 # print cord1
 cord2 = np.array([nz[1][rightix],nz[0][rightix]])
 # print cord2
+
+# get the skew angle as the angle between
+# a) the unit vector (1,0)
+# b) a vector from one corner of the rectangle to another
+
+vector1 = (1, 0)
+vector2 = cord2 - cord1
+skew = angleFromVecs(vector1, vector2)
+# rotate the image
+rotim = ndimage.rotate(imageRead, skew, reshape=False)
+plt.imshow(imageRead)
+plt.plot(cord1[0], cord1[1], ls='none', marker='x', mew=4, ms=20)
+plt.plot(cord2[0], cord2[1], ls='none', marker='x', mew=4, ms=20)
+plt.title('original')
+plt.show()
+
+# plot the rotated image
+plt.clf()
+plt.imshow(rotim)
+plt.title('rotated')
+plt.show()
